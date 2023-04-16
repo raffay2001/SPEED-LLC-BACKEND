@@ -7,5 +7,6 @@ const motorStateController = require('../../controllers/motor-state.controller')
 const router = express.Router();
 
 router.route('/ping').get(auth('forUser'), motorStateController.pingController);
+router.route('/products').get(auth('forUser'), motorStateController.getProductsController);
 
 module.exports = router;

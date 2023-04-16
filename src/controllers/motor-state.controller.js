@@ -13,6 +13,19 @@ const pingController = catchAsync(async (req, res) => {
   res.json(response.data);
 });
 
+const getProductsController = catchAsync(async (req, res) => {
+  const { PartNumbers } = req.query;
+  const response = await motorStateAPIInstance.request({
+    url: `Product?PartNumbers=${PartNumbers}`,
+    method: 'GET',
+    headers: {
+      apiKey: process.env.MOTOR_STATE_API_KEY,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   pingController,
+  getProductsController,
 };
