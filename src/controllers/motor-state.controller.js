@@ -25,7 +25,19 @@ const getProductsController = catchAsync(async (req, res) => {
   res.json(response.data);
 });
 
+const getOrderingOptionsController = catchAsync(async (req, res) => {
+  const response = await motorStateAPIInstance.request({
+    url: `OrderOptions`,
+    method: 'GET',
+    headers: {
+      apiKey: process.env.MOTOR_STATE_API_KEY,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   pingController,
   getProductsController,
+  getOrderingOptionsController,
 };
