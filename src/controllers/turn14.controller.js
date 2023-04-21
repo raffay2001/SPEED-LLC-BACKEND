@@ -46,7 +46,111 @@ const getAllBrandsController = catchAsync(async (req, res) => {
   res.json(response.data);
 });
 
+const getBrandByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `brands/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getBrandPriceGroupController = catchAsync(async (req, res) => {
+  const { brandId, pricegroupId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `brands/${brandId}/pricegroup/${pricegroupId}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getCreditsController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'credits',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getCreditByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `credits/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getCreditByPurchaseOrderNumberController = catchAsync(async (req, res) => {
+  const { purchaseOrderNumber } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `credits/po/${purchaseOrderNumber}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getDocumentsByIdController = catchAsync(async (req, res) => {
+  const { quoteId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `/documents/${quoteId}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getDocumentByPurchaseOrderNumberController = catchAsync(async (req, res) => {
+  const { purchaseOrderNumber } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `documents/po/${purchaseOrderNumber}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   tokenController,
   getAllBrandsController,
+  getBrandByIdController,
+  getBrandPriceGroupController,
+  getCreditsController,
+  getCreditByIdController,
+  getCreditByPurchaseOrderNumberController,
+  getDocumentsByIdController,
+  getDocumentByPurchaseOrderNumberController,
 };

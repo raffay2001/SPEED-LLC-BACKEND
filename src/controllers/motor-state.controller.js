@@ -9,7 +9,6 @@ const pingController = catchAsync(async (req, res) => {
       apiKey: process.env.MOTOR_STATE_API_KEY,
     },
   });
-  console.log(response);
   res.json(response.data);
 });
 
