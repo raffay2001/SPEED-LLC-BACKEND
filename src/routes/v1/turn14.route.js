@@ -35,4 +35,14 @@ router
   .route('/invoices/po/:purchaseOrderNumber')
   .get(auth('forUser'), turn14Controller.getInvoiceByPurchaseOrderNumberController);
 
+router.route('/items').get(auth('forUser'), turn14Controller.getAllItemsController);
+router.route('/items/:id').get(auth('forUser'), turn14Controller.getItemByIdController);
+router.route('/items/brand/:brandId').get(auth('forUser'), turn14Controller.getAllItemsForBrandController);
+router
+  .route('/items/brand/:brandId/pricegroup/:pricegroupId')
+  .get(auth('forUser'), turn14Controller.getPriceGroupItemForABrandController);
+router.route('/items/updates').get(auth('forUser'), turn14Controller.getUpdatedItemController);
+router.route('/items/data').get(auth('forUser'), turn14Controller.getAllItemDataController);
+router.route('/items/data/:itemId').get(auth('forUser'), turn14Controller.getAllItemDataByIdController);
+
 module.exports = router;

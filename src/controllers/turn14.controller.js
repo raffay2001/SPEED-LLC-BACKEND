@@ -205,7 +205,7 @@ const getPriceGroupInventoryForABrandController = catchAsync(async (req, res) =>
   const { brandId, pricegroupId } = req.params;
   const accessToken = await getAccessToken();
   const response = await turnAPIInstance.request({
-    url: `/v1/inventory/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    url: `inventory/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -269,6 +269,107 @@ const getInvoiceByPurchaseOrderNumberController = catchAsync(async (req, res) =>
   });
   res.json(response.data);
 });
+
+const getAllItemsController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { page } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `items?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getItemByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemsForBrandController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { page } = req.query;
+  const { brandId } = req.params;
+  const response = await turnAPIInstance.request({
+    url: `items/brand/${brandId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPriceGroupItemForABrandController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId, pricegroupId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getUpdatedItemController = catchAsync(async (req, res) => {
+  const { page, days } = req.query;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/updates?page=${page}&days=${days}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemDataController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/data?page==${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemDataByIdController = catchAsync(async (req, res) => {
+  const { itemId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/data/${itemId}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   tokenController,
   getAllBrandsController,
@@ -288,4 +389,11 @@ module.exports = {
   getAllInvoicesController,
   getInvoiceByIdController,
   getInvoiceByPurchaseOrderNumberController,
+  getAllItemsController,
+  getItemByIdController,
+  getAllItemsForBrandController,
+  getPriceGroupItemForABrandController,
+  getUpdatedItemController,
+  getAllItemDataController,
+  getAllItemDataByIdController,
 };
