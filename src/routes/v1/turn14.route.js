@@ -21,5 +21,18 @@ router.route('/documents/:quoteId').get(auth('forUser'), turn14Controller.getDoc
 router
   .route('/documents/po/:purchaseOrderNumber')
   .get(auth('forUser'), turn14Controller.getDocumentByPurchaseOrderNumberController);
+router.route('/dropship/:id').get(auth('forUser'), turn14Controller.getDropshipByIdController);
+router.route('/inventory').get(auth('forUser'), turn14Controller.getAllInventoryController);
+router.route('/inventory/:id').get(auth('forUser'), turn14Controller.getInventoryByIdController);
+router.route('/inventory/brand/:brandId').get(auth('forUser'), turn14Controller.getBrandInventoryController);
+router
+  .route('/inventory/brand/:brandId/pricegroup/:pricegroupId')
+  .get(auth('forUser'), turn14Controller.getPriceGroupInventoryForABrandController);
+router.route('/inventory/updates').get(auth('forUser'), turn14Controller.getUpdatedInventoryController);
+router.route('/invoices').get(auth('forUser'), turn14Controller.getAllInvoicesController);
+router.route('/invoices/:id').get(auth('forUser'), turn14Controller.getInvoiceByIdController);
+router
+  .route('/invoices/po/:purchaseOrderNumber')
+  .get(auth('forUser'), turn14Controller.getInvoiceByPurchaseOrderNumberController);
 
 module.exports = router;

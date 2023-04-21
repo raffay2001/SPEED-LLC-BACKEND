@@ -143,6 +143,132 @@ const getDocumentByPurchaseOrderNumberController = catchAsync(async (req, res) =
   res.json(response.data);
 });
 
+const getDropshipByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `dropship/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllInventoryController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `inventory?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getInventoryByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `inventory/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getBrandInventoryController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `inventory/brand/${brandId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPriceGroupInventoryForABrandController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId, pricegroupId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `/v1/inventory/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getUpdatedInventoryController = catchAsync(async (req, res) => {
+  const { page, minutes } = req.query;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `inventory/updates?page=${page}&minutes=${minutes}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllInvoicesController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'invoices',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getInvoiceByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `invoices/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getInvoiceByPurchaseOrderNumberController = catchAsync(async (req, res) => {
+  const { purchaseOrderNumber } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `invoices/po/${purchaseOrderNumber}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
 module.exports = {
   tokenController,
   getAllBrandsController,
@@ -153,4 +279,13 @@ module.exports = {
   getCreditByPurchaseOrderNumberController,
   getDocumentsByIdController,
   getDocumentByPurchaseOrderNumberController,
+  getDropshipByIdController,
+  getAllInventoryController,
+  getInventoryByIdController,
+  getBrandInventoryController,
+  getPriceGroupInventoryForABrandController,
+  getUpdatedInventoryController,
+  getAllInvoicesController,
+  getInvoiceByIdController,
+  getInvoiceByPurchaseOrderNumberController,
 };
