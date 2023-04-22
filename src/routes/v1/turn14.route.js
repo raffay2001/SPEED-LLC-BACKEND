@@ -63,5 +63,8 @@ router.route('/orders/:id').get(auth('forUser'), turn14Controller.getOrderByIdCo
 router
   .route('/orders/po/:purchaseOrderNumber')
   .get(auth('forUser'), turn14Controller.getOrderByPurchaseOrderNumberController);
+router.route('/payments').get(auth('forUser'), turn14Controller.getAllPaymentsController);
+router.route('/payments/:id').get(auth('forUser'), turn14Controller.getPaymentByIdController);
+router.route('/payments/invoice/:invoiceId').get(auth('forUser'), turn14Controller.getPaymentByInvoiceController);
 
 module.exports = router;

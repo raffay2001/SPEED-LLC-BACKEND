@@ -512,6 +512,47 @@ const getOrderByPurchaseOrderNumberController = catchAsync(async (req, res) => {
   res.json(response.data);
 });
 
+const getAllPaymentsController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'payments',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPaymentByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `payments/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPaymentByInvoiceController = catchAsync(async (req, res) => {
+  const { invoiceId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `payments/invoice/${invoiceId}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   tokenController,
   getAllBrandsController,
@@ -548,4 +589,7 @@ module.exports = {
   getAllOrdersController,
   getOrderByIdController,
   getOrderByPurchaseOrderNumberController,
+  getAllPaymentsController,
+  getPaymentByIdController,
+  getPaymentByInvoiceController,
 };
