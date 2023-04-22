@@ -684,6 +684,96 @@ const getAllShippingController = catchAsync(async (req, res) => {
   res.json(response.data);
 });
 
+const getAllEstimatedShippingController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'shipping/item_estimation',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getEstimatedShippingByIdController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { id } = req.params;
+  const response = await turnAPIInstance.request({
+    url: `shipping/item_estimation/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getEstimatedShippingByBrandController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { brandId } = req.params;
+  const { page } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `shipping/item_estimation/brand/${brandId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllPriceGroupEstimatedShippingRateForABrandController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { brandId, pricegroupId } = req.params;
+  const { page } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `shipping/item_estimation/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllTrackingsController = catchAsync(async (req, res) => {
+  const { start_date, end_date } = req.query;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `tracking?start_date=${start_date}&end_date=${end_date}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getTrackingsByPacakageDetailsController = catchAsync(async (req, res) => {
+  const { start_date, end_date, tracking_number, id } = req.query;
+  const accessToken = await getAccessToken();
+  const url = tracking_number
+    ? `tracking/package_details?tracking_number=${tracking_number}`
+    : id
+    ? `tracking/package_details?id=${id}`
+    : `tracking/package_details?start_date=${start_date}&end_date=${end_date}`;
+  const response = await turnAPIInstance.request({
+    url: url,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   tokenController,
   getAllBrandsController,
@@ -732,4 +822,10 @@ module.exports = {
   createOrderController,
   createOrderFromQuoteController,
   getAllShippingController,
+  getAllEstimatedShippingController,
+  getEstimatedShippingByIdController,
+  getEstimatedShippingByBrandController,
+  getAllPriceGroupEstimatedShippingRateForABrandController,
+  getAllTrackingsController,
+  getTrackingsByPacakageDetailsController,
 };

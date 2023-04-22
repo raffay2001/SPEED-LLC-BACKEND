@@ -77,5 +77,15 @@ router.route('/quote').post(auth('forUser'), turn14Controller.createQuoteControl
 router.route('/order').post(auth('forUser'), turn14Controller.createOrderController);
 router.route('/order/from_quote').post(auth('forUser'), turn14Controller.createOrderFromQuoteController);
 router.route('/shipping').get(auth('forUser'), turn14Controller.getAllShippingController);
+router.route('/shipping/item_estimation').get(auth('forUser'), turn14Controller.getAllEstimatedShippingController);
+router.route('/shipping/item_estimation/:id').get(auth('forUser'), turn14Controller.getEstimatedShippingByIdController);
+router
+  .route('/shipping/item_estimation/brand/:brandId')
+  .get(auth('forUser'), turn14Controller.getEstimatedShippingByBrandController);
+router
+  .route('/shipping/item_estimation/brand/:brandId/pricegroup/:pricegroupId')
+  .get(auth('forUser'), turn14Controller.getAllPriceGroupEstimatedShippingRateForABrandController);
+router.route('/tracking').get(auth('forUser'), turn14Controller.getAllTrackingsController);
+router.route('/tracking/package_details').get(auth('forUser'), turn14Controller.getTrackingsByPacakageDetailsController);
 
 module.exports = router;
