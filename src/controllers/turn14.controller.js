@@ -75,9 +75,10 @@ const getBrandPriceGroupController = catchAsync(async (req, res) => {
 });
 
 const getCreditsController = catchAsync(async (req, res) => {
+  const { start_date, end_date } = req.query;
   const accessToken = await getAccessToken();
   const response = await turnAPIInstance.request({
-    url: 'credits',
+    url: `credits?start_date=${start_date}&end_date=${end_date}`,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -231,8 +232,9 @@ const getUpdatedInventoryController = catchAsync(async (req, res) => {
 
 const getAllInvoicesController = catchAsync(async (req, res) => {
   const accessToken = await getAccessToken();
+  const { start_date, end_date } = req.query;
   const response = await turnAPIInstance.request({
-    url: 'invoices',
+    url: `invoices?start_date=${start_date}&end_date=${end_date}`,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -472,9 +474,10 @@ const getAllLocationsController = catchAsync(async (req, res) => {
 });
 
 const getAllOrdersController = catchAsync(async (req, res) => {
+  const { start_date, end_date } = req.query;
   const accessToken = await getAccessToken();
   const response = await turnAPIInstance.request({
-    url: 'orders',
+    url: `orders?start_date=${start_date}&end_date=${end_date}`,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -514,8 +517,9 @@ const getOrderByPurchaseOrderNumberController = catchAsync(async (req, res) => {
 
 const getAllPaymentsController = catchAsync(async (req, res) => {
   const accessToken = await getAccessToken();
+  const { start_date, end_date } = req.query;
   const response = await turnAPIInstance.request({
-    url: 'payments',
+    url: `payments?start_date=${start_date}&end_date=${end_date}`,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -544,6 +548,133 @@ const getPaymentByInvoiceController = catchAsync(async (req, res) => {
   const accessToken = await getAccessToken();
   const response = await turnAPIInstance.request({
     url: `payments/invoice/${invoiceId}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllPricingController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { page } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `pricing?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPricingByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `pricing/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPricingChangesController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { start_date, end_date } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `pricing/changes?start_date=${start_date}&end_date=${end_date}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPricingByBrandController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { brandId } = req.params;
+  const { page } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `pricing/brand/${brandId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllPriceGroupPricingForABrandController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const { brandId, pricegroupId } = req.params;
+  const { page } = req.query;
+  const response = await turnAPIInstance.request({
+    url: `pricing/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const createQuoteController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `quote`,
+    method: 'POST',
+    data: req.body,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const createOrderController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `order`,
+    method: 'POST',
+    data: req.body,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const createOrderFromQuoteController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `order/from_quote`,
+    method: 'POST',
+    data: req.body,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllShippingController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'shipping',
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -592,4 +723,13 @@ module.exports = {
   getAllPaymentsController,
   getPaymentByIdController,
   getPaymentByInvoiceController,
+  getAllPricingController,
+  getPricingByIdController,
+  getPricingChangesController,
+  getPricingByBrandController,
+  getAllPriceGroupPricingForABrandController,
+  createQuoteController,
+  createOrderController,
+  createOrderFromQuoteController,
+  getAllShippingController,
 };

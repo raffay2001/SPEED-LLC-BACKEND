@@ -66,5 +66,16 @@ router
 router.route('/payments').get(auth('forUser'), turn14Controller.getAllPaymentsController);
 router.route('/payments/:id').get(auth('forUser'), turn14Controller.getPaymentByIdController);
 router.route('/payments/invoice/:invoiceId').get(auth('forUser'), turn14Controller.getPaymentByInvoiceController);
+router.route('/pricing').get(auth('forUser'), turn14Controller.getAllPricingController);
+router.route('/pricing/:id').get(auth('forUser'), turn14Controller.getPricingByIdController);
+router.route('/pricing-rates/changes').get(auth('forUser'), turn14Controller.getPricingChangesController);
+router.route('/pricing/brand/:brandId').get(auth('forUser'), turn14Controller.getPricingByBrandController);
+router
+  .route('/pricing/brand/:brandId/pricegroup/:pricegroupId')
+  .get(auth('forUser'), turn14Controller.getAllPriceGroupPricingForABrandController);
+router.route('/quote').post(auth('forUser'), turn14Controller.createQuoteController);
+router.route('/order').post(auth('forUser'), turn14Controller.createOrderController);
+router.route('/order/from_quote').post(auth('forUser'), turn14Controller.createOrderFromQuoteController);
+router.route('/shipping').get(auth('forUser'), turn14Controller.getAllShippingController);
 
 module.exports = router;
