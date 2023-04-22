@@ -44,5 +44,24 @@ router
 router.route('/items/updates').get(auth('forUser'), turn14Controller.getUpdatedItemController);
 router.route('/items/data').get(auth('forUser'), turn14Controller.getAllItemDataController);
 router.route('/items/data/:itemId').get(auth('forUser'), turn14Controller.getAllItemDataByIdController);
+router.route('/items/data/brand/:brandId').get(auth('forUser'), turn14Controller.getAllItemDataForABrandController);
+router
+  .route('/items/data/brand/:brandId/pricegroup/:pricegroupId')
+  .get(auth('forUser'), turn14Controller.getPriceGroupAllItemDataForABrandController);
+router.route('/items/fitment').get(auth('forUser'), turn14Controller.getAllItemFitmentDataController);
+router.route('/items/fitment/:id').get(auth('forUser'), turn14Controller.getAllItemFitmentDataByIdController);
+router
+  .route('/items/fitment/brand/:brandId')
+  .get(auth('forUser'), turn14Controller.getAllItemFitmentDataForABrandController);
+router
+  .route('/items/fitment/brand/:brandId/pricegroup/:pricegroupId')
+  .get(auth('forUser'), turn14Controller.getAllItemFitmentDataForABrandPriceGroupController);
+router.route('/brands').get(auth('forUser'), turn14Controller.getAllBrandsController);
+router.route('/locations').get(auth('forUser'), turn14Controller.getAllLocationsController);
+router.route('/orders').get(auth('forUser'), turn14Controller.getAllOrdersController);
+router.route('/orders/:id').get(auth('forUser'), turn14Controller.getOrderByIdController);
+router
+  .route('/orders/po/:purchaseOrderNumber')
+  .get(auth('forUser'), turn14Controller.getOrderByPurchaseOrderNumberController);
 
 module.exports = router;

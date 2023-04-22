@@ -370,6 +370,148 @@ const getAllItemDataByIdController = catchAsync(async (req, res) => {
   res.json(response.data);
 });
 
+const getAllItemDataForABrandController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/data/brand/${brandId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getPriceGroupAllItemDataForABrandController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId, pricegroupId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/data/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemFitmentDataController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/fitment?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemFitmentDataForABrandController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/fitment/brand/${brandId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemFitmentDataForABrandPriceGroupController = catchAsync(async (req, res) => {
+  const { page } = req.query;
+  const { brandId, pricegroupId } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/fitment/brand/${brandId}/pricegroup/${pricegroupId}?page=${page}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllItemFitmentDataByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `items/fitment/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllLocationsController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'locations',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getAllOrdersController = catchAsync(async (req, res) => {
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: 'orders',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getOrderByIdController = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `orders/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
+const getOrderByPurchaseOrderNumberController = catchAsync(async (req, res) => {
+  const { purchaseOrderNumber } = req.params;
+  const accessToken = await getAccessToken();
+  const response = await turnAPIInstance.request({
+    url: `orders/po/${purchaseOrderNumber}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  res.json(response.data);
+});
+
 module.exports = {
   tokenController,
   getAllBrandsController,
@@ -396,4 +538,14 @@ module.exports = {
   getUpdatedItemController,
   getAllItemDataController,
   getAllItemDataByIdController,
+  getAllItemDataForABrandController,
+  getPriceGroupAllItemDataForABrandController,
+  getAllItemFitmentDataController,
+  getAllItemFitmentDataForABrandController,
+  getAllItemFitmentDataForABrandPriceGroupController,
+  getAllItemFitmentDataByIdController,
+  getAllLocationsController,
+  getAllOrdersController,
+  getOrderByIdController,
+  getOrderByPurchaseOrderNumberController,
 };
