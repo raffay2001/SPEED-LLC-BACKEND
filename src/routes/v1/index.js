@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const motorStateRoute = require('./motor-state.route');
 const turn14Route = require('./turn14.route');
+const meyerRoute = require('./meyer.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: '/turn14',
     route: turn14Route,
+  },
+  {
+    path: '/meyer',
+    route: meyerRoute,
   },
 ];
 

@@ -10,7 +10,13 @@ const turnAPIInstance = axios.create({
   withCredentials: true,
 });
 
+const meyerAPIInstance = axios.create({
+  baseURL: process.env.MEYER_API_BASE_URL,
+  withCredentials: true,
+});
+
 module.exports = {
   motorStateAPIInstance,
   turnAPIInstance,
+  meyerAPIInstance
 };
