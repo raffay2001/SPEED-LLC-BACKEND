@@ -35,7 +35,7 @@ router
   .route('/invoices/po/:purchaseOrderNumber')
   .get(auth('forUser'), turn14Controller.getInvoiceByPurchaseOrderNumberController);
 
-router.route('/items').get(auth('forUser'), turn14Controller.getAllItemsController);
+router.route('/items').get( turn14Controller.getAllItemsController);
 router.route('/items/:id').get(auth('forUser'), turn14Controller.getItemByIdController);
 router.route('/items/brand/:brandId').get(auth('forUser'), turn14Controller.getAllItemsForBrandController);
 router

@@ -283,6 +283,7 @@ const getAllItemsController = catchAsync(async (req, res) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+  console.log(response.data)
   res.json(response.data);
 });
 

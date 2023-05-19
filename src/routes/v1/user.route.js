@@ -3,8 +3,14 @@ const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
 const userController = require('../../controllers/user.controller');
+const { orderValidation } = require('../../validations');
+const { orderController } = require('../../controllers');
 
 const router = express.Router();
+router
+  .route('/order')
+  .get(auth('forUser'), orderController.getOrderByID)
+  .post(auth('forUser'), validate(orderValidation.orderValidator), orderController.placeOrder);
 
 router
   .route('/')
@@ -16,6 +22,7 @@ router
   .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
   .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
   .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
+
 
 module.exports = router;
 
